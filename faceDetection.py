@@ -5,9 +5,9 @@ import cv2
   
 
 # eye_cascade = cv2.CascadeClassifier("haar cascade files/haarcascade_eye_tree_eyeglasses.xml")  
-face = cv2.CascadeClassifier('haar cascade files/haarcascade_frontalface_alt.xml')
-leye = cv2.CascadeClassifier('haar cascade files/haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier('haar cascade files/haarcascade_righteye_2splits.xml')
+face = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_frontalface_alt.xml')
+leye = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_lefteye_2splits.xml')
+reye = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_righteye_2splits.xml')
   
 # capture frames from a camera 
 cap = cv2.VideoCapture(0) 
