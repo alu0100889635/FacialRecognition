@@ -8,7 +8,7 @@ import cv2
 face = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_frontalface_alt.xml')
 leye = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_lefteye_2splits.xml')
 reye = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_righteye_2splits.xml')
-mouth = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_mouth.xml')
+mth = cv2.CascadeClassifier('haarCascadeFiles/haarcascade_mouth.xml')
   
 # capture frames from a camera 
 cap = cv2.VideoCapture(0) 
@@ -39,10 +39,10 @@ while 1:
         for (ex,ey,ew,eh) in eyes: 
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,127,255),2)
 
-        mouth = mouth.detectMultiScale(roi_gray)
+        # mouth = mth.detectMultiScale(roi_gray)
 
-        for (mx,my,mw,mh) in mouth:
-            cv2.rectangle(roi_color,(mx,my),(mx+mw,my+mh),(0,127,255),2)
+        # for (mx,my,mw,mh) in mouth:
+        #     cv2.rectangle(roi_color,(mx,my),(mx+mw,my+mh),(0,255,0),2)
   
     # Display an image in a window 
     cv2.imshow('img',img) 
