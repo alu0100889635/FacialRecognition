@@ -3,7 +3,7 @@ import face_recognition
 
 imgElon = face_recognition.load_image_file('ImagesBasic/elonMusk.jpg')
 imgElon = cv2.cvtColor(imgElon, cv2.COLOR_BGR2RGB)
-imgElonTest = face_recognition.load_image_file('ImagesBasic/billGates.jpg')
+imgElonTest = face_recognition.load_image_file('ImagesBasic/elon-musk_test.png')
 imgElonTest = cv2.cvtColor(imgElonTest, cv2.COLOR_BGR2RGB)
 
 faceLoc = face_recognition.face_locations(imgElon)[0]
