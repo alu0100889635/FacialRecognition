@@ -1,32 +1,14 @@
+import requests
 import cv2
 import face_recognition
-import os
 import numpy as np
 
-path = 'ImagesAttendance'
-images = []
-classNames = []
-myList = os.listdir(path)
+serial_number = "nldsjkfnlkjab-fskajflfs"
 
-for cl in myList:
-    curImg =cv2.imread(f'{path}/{cl}')
-    images.append(curImg)
-    classNames.append(os.path.splitext(cl)[0])
-
-print(classNames)
-
-def findEncodings(images):
-    encodingList = []
-    for img in images:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        encode = face_recognition.face_encodings(img)[0]
-        print(type(encode))
-        encodingList.append(encode)
-    return encodingList
-
-encodeListKnown = findEncodings(images)
-print(encodeListKnown[0])
-print('Encoding complete!')
+response = requests.get("http://127.0.0.1:8000/vehicles/digitalKey/nldsjkfnlkjab-fskajflfs")
+digitalKey = response.json()
+facial_embedding = np.array(digitalKey["facial_embedding"])
+print(type(facial_embedding))
 
 cap = cv2.VideoCapture(0)
 
@@ -39,13 +21,14 @@ while True:
     encodesCurrFrame = face_recognition.face_encodings(resImg, facesCurrFrame)
 
     for encodeFace, faceLoc in zip(encodesCurrFrame, facesCurrFrame):
-        matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
-        faceDistance = face_recognition.face_distance(encodeListKnown, encodeFace)
+        matches = face_recognition.compare_faces([facial_embedding], encodeFace)
+        faceDistance = face_recognition.face_distance([facial_embedding], encodeFace)
+        ##Mientras sea menor o igual que 0.6 se tratará de la misma persona.
         print(faceDistance)
         matchIndex = np.argmin(faceDistance)
 
         if matches[matchIndex]:
-            name = classNames[matchIndex].upper()
+            name = digitalKey["full_name"].upper()
             print(name)
             y1, x2, y2, x1 = faceLoc
             y1, x1, y2, x2 = y1 * 4, x1 * 4, y2 * 4, x2 * 4
@@ -61,5 +44,4 @@ while True:
 cap.release() 
   
 # De-allocate any associated memory usage 
-cv2.destroyAllWindows()  
-
+cv2.destroyAllWindows()
